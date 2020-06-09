@@ -1,5 +1,5 @@
 const mqtt = require('mqtt');
-const client = mqtt.connect('ws://0b4554f5ef90.ngrok.io');
+const client = mqtt.connect('ws://fd01398c9f36.ngrok.io');
 const topic = 'ZonaA';
 const persitant = require('./app/worker/average');
 
