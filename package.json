@@ -1,0 +1,22 @@
+{
+  "name": "worker-subscriber",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bull": "^3.12.1",
+    "ioredis": "^4.14.1",
+    "mosca": "^2.8.3",
+    "mqtt": "^3.0.0",
+    "redis": "^3.0.2",
+    "mongoose": "^5.9.10",
+    "mongoose-unique-validator": "^2.0.3"
+  }
+}

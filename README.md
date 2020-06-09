@@ -1,1 +1,1 @@
-app-zone-a
+subcriber-worker
