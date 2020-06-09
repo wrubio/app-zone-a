@@ -8,7 +8,7 @@ const Device = require('../models/device-model');
 const REDIS_PORT = process.env.PORT || 6379;
 const redis = new Redis({
   port: REDIS_PORT,
-  host: "127.0.0.1",
+  host: "6330d743ff1f.ngrok.io",
   db: 0,
   retryStrategy: function(times) {
     return Math.min(Math.exp(times), 20000);
