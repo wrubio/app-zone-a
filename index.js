@@ -1,5 +1,5 @@
 const mqtt = require('mqtt');
-const client = mqtt.connect('ws://fd01398c9f36.ngrok.io');
+const client = mqtt.connect('ws://127.0.0.1:3800');
 const topic = 'ZonaA';
 const persitant = require('./app/worker/average');
 
@@ -17,6 +17,7 @@ client.on('connect', () => {
 // Call job to worker
 client.on('message', (topic, data) => {
   message = JSON.parse(data);
+
   persitant(message);
 });
 

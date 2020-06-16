@@ -8,7 +8,7 @@ const Device = require('../models/device-model');
 const REDIS_PORT = process.env.PORT || 6379;
 const redis = new Redis({
   port: REDIS_PORT,
-  host: "6330d743ff1f.ngrok.io",
+  host: "52.151.60.105",
   db: 0,
   retryStrategy: function(times) {
     return Math.min(Math.exp(times), 20000);
@@ -49,10 +49,13 @@ function averageProcess(device) {
         const newDevice = new Device({
           device_id: device.id,
           device: device.device,
-          metric: device.metric,
+          metric: device.pollutant,
           unit: device.unit,
           value: device.value,
-          zone: device.zone
+          zone: device.zone,
+          country: device.country,
+          city: device.city,
+          location: device.location,
         });
         
         newDevice.save(async (err, savedDevice) => {
