@@ -6,17 +6,17 @@ const osu = require('node-os-utils');
 const im = require('imagemagick');
 
 
-const average = new Queue('worker', 'redis://13.77.173.249:6379');
-const resizeImg2k = new Queue('img2k', 'redis://13.77.173.249:6379');
-const resizeImg4k = new Queue('img4k', 'redis://13.77.173.249:6379');
-const resizeImg8k = new Queue('img8k', 'redis://13.77.173.249:6379');
+const average = new Queue('worker', 'redis://127.0.0.1:6379');
+const resizeImg2k = new Queue('img2k', 'redis://127.0.0.1:6379');
+const resizeImg4k = new Queue('img4k', 'redis://127.0.0.1:6379');
+const resizeImg8k = new Queue('img8k', 'redis://127.0.0.1:6379');
 
 // ================================================================
 // Redis connection
 const REDIS_PORT = process.env.PORT || 6379;
 const redis = new Redis({
   port: REDIS_PORT,
-  host: "13.77.173.249",
+  host: "127.0.0.1",
   db: 0,
   retryStrategy: function(times) {
     return Math.min(Math.exp(times), 20000);
