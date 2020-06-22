@@ -39,9 +39,9 @@ async function showPerformanceMetris() {
 
   setTimeout(() => {
     return showPerformanceMetris();
-  }, 3000);
+  }, 10000);
 }
-// showPerformanceMetris();
+showPerformanceMetris();
 // ================================================================
 // Resize image 
 function resizeImage(imgResize) {
@@ -84,13 +84,13 @@ function averageProcess(device) {
       
       if (result){
         await setDoorStatus(device);
-        console.log('UPDATE:', device.id);
+        // console.log('UPDATE:', device.id);
         result.value = device.value;
         result.save((err, savedDevice) => {
           return err ? reject(err) : resolve(savedDevice);
         });
       } else {
-        console.log('NUEVO:', device.id);
+        // console.log('NUEVO:', device.id);
         const newDevice = new Device({
           device_id: device.id,
           device: device.device,
