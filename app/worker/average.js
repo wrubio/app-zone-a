@@ -6,10 +6,10 @@ const osu = require('node-os-utils');
 const im = require('imagemagick');
 
 
-const average = new Queue('worker', 'redis://127.0.0.1:6379');
-const resizeImg2k = new Queue('img2k', 'redis://127.0.0.1:6379');
-const resizeImg4k = new Queue('img4k', 'redis://127.0.0.1:6379');
-const resizeImg8k = new Queue('img8k', 'redis://127.0.0.1:6379');
+const average = new Queue('worker');
+const resizeImg2k = new Queue('img2k');
+const resizeImg4k = new Queue('img4k');
+const resizeImg8k = new Queue('img8k');
 
 // ================================================================
 // Redis connection
@@ -41,7 +41,7 @@ async function showPerformanceMetris() {
     return showPerformanceMetris();
   }, 10000);
 }
-showPerformanceMetris();
+// showPerformanceMetris();
 // ================================================================
 // Resize image 
 function resizeImage(imgResize) {
@@ -84,7 +84,7 @@ function averageProcess(device) {
       
       if (result){
         await setDoorStatus(device);
-        // console.log('UPDATE:', device.id);
+        console.log('UPDATE:', device.id);
         result.value = device.value;
         result.save((err, savedDevice) => {
           return err ? reject(err) : resolve(savedDevice);
