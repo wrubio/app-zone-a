@@ -11,6 +11,9 @@ const znadevicesSchema = new Schema({
   value: { type: String, require: [true, 'A temperature value is require'] },
   door: { type: Boolean, default: false },
   zone: { type: String, default: 'Zone A' },
+  country: { type: String, default: '' },
+  city: { type: String, default: '' },
+  location: { type: String, default: '' },
 }, {
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 }, { 
