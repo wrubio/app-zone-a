@@ -1,5 +1,5 @@
 const mqtt = require('mqtt');
-const client = mqtt.connect('ws://127.0.0.1:3800');
+const client = mqtt.connect('ws://52.156.64.39');
 const topic = 'ZonaA';
 const persitant = require('./app/worker/average');
 
