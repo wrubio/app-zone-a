@@ -166,7 +166,7 @@ convertVideo2Audio.on('completed', async (job) => {
 async function averageJob(device) {
   average.add(device);
   resizeImg2k.add(0);
-  convertVideo2Audio.add();
+  // convertVideo2Audio.add();
 }
 
 module.exports = averageJob;
