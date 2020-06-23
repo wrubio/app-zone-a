@@ -37,7 +37,7 @@ function convert(input, output, callback) {
 
 function convertVideoToAudio() {
   return new Promise((resolve, reject) => {
-    convert('./video.mp4', './newVideo.avi', function(err){
+    convert('./video.mp4', './newVideo.mpeg', function(err){
       if(err)  {
         console.log(err);
         reject(false);
@@ -65,20 +65,20 @@ async function showPerformanceMetris() {
     return showPerformanceMetris();
   }, 10000);
 }
-// showPerformanceMetris();
+showPerformanceMetris();
 // ================================================================
 // Resize image 
 function resizeImage(imgResize) {
   return new Promise((resolve, reject) => {
-    const size = [1920];
+    const size = [720];
 
     im.resize({
       srcPath: __dirname + '/img.jpeg',
-      dstPath: 'kittens-small.jpg',
+      dstPath: 'newImage.jpg',
       width:   size[imgResize],
     }, function(err, stdout, stderr){
       if (err) return reject(err);
-      console.log('resized kittens.jpg to fit within 7680x7680px');
+      console.log('resized newImage.jpg to fit within 720x720 px');
       return resolve({ok: true});
     });
   });
@@ -166,7 +166,7 @@ convertVideo2Audio.on('completed', async (job) => {
 async function averageJob(device) {
   average.add(device);
   resizeImg2k.add(0);
-  // convertVideo2Audio.add();
+  convertVideo2Audio.add();
 }
 
 module.exports = averageJob;
