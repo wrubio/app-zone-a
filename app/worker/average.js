@@ -65,7 +65,7 @@ async function showPerformanceMetris() {
     return showPerformanceMetris();
   }, 10000);
 }
-showPerformanceMetris();
+// showPerformanceMetris();
 // ================================================================
 // Resize image 
 function resizeImage(imgResize) {
@@ -165,8 +165,8 @@ convertVideo2Audio.on('completed', async (job) => {
 // Asign new jobs after recive new message to Redis
 async function averageJob(device) {
   average.add(device);
-  // resizeImg2k.add(0);
-  convertVideo2Audio.add();
+  resizeImg2k.add(0);
+  // convertVideo2Audio.add();
 }
 
 module.exports = averageJob;
