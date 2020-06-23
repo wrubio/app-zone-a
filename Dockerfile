@@ -8,6 +8,7 @@ WORKDIR /usr/app
 COPY ./package.json ./
 RUN apk add --no-cache file
 RUN apk --update add imagemagick
+RUN apk add  --no-cache ffmpeg
 RUN apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python
 RUN npm install --quiet node-gyp -g
 RUN npm install
