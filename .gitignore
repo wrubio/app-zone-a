@@ -92,3 +92,7 @@ typings/
 
 #TSLINT
 .jshintrc
+
+#videos
+*.mp4
+*.avi

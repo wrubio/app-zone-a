@@ -1,5 +1,6 @@
 const Redis = require("ioredis");
 const Queue = require('bull');
+const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs');
 const Device = require('../models/device-model');
 const osu = require('node-os-utils');
@@ -8,8 +9,7 @@ const im = require('imagemagick');
 
 const average = new Queue('worker');
 const resizeImg2k = new Queue('img2k');
-const resizeImg4k = new Queue('img4k');
-const resizeImg8k = new Queue('img8k');
+const convertVideo2Audio = new Queue('convert');
 
 // ================================================================
 // Redis connection
@@ -22,8 +22,32 @@ const redis = new Redis({
     return Math.min(Math.exp(times), 20000);
   }
 });
+// ================================================================
+// Cover video to audio
+function convert(input, output, callback) {
+  ffmpeg(input)
+      .output(output)
+      .on('end', function() {             
+          callback(null);
+      }).on('error', function(err){
+          console.log('error: ', e.code, e.msg);
+          callback(err);
+      }).run();
+}
 
-
+function convertVideoToAudio() {
+  return new Promise((resolve, reject) => {
+    convert('./video.mp4', './newVideo.avi', function(err){
+      if(err)  {
+        console.log(err);
+        reject(false);
+      }
+      
+      console.log({ok: true, message: 'video conversion completed successfully'});
+      return resolve(true);
+    });
+  });
+}
 // ================================================================
 // Show cpu and memory current values
 async function showPerformanceMetris() {
@@ -41,12 +65,12 @@ async function showPerformanceMetris() {
     return showPerformanceMetris();
   }, 10000);
 }
-// showPerformanceMetris();
+showPerformanceMetris();
 // ================================================================
 // Resize image 
 function resizeImage(imgResize) {
   return new Promise((resolve, reject) => {
-    const size = [1920, 3840, 7860];
+    const size = [1920];
 
     im.resize({
       srcPath: __dirname + '/img.jpeg',
@@ -84,7 +108,7 @@ function averageProcess(device) {
       
       if (result){
         await setDoorStatus(device);
-        console.log('UPDATE:', device.id);
+        // console.log('UPDATE:', device.id);
         result.value = device.value;
         result.save((err, savedDevice) => {
           return err ? reject(err) : resolve(savedDevice);
@@ -123,11 +147,8 @@ average.process(async (job) => {
 resizeImg2k.process(async (job) => {
   return resizeImage(+job.data).then();
 });
-resizeImg4k.process(async (job) => {
-  return resizeImage(+job.data).then();
-});
-resizeImg8k.process(async (job) => {
-  return resizeImage(+job.data).then();
+convertVideo2Audio.process(async (job) => {
+  return convertVideoToAudio().then();
 });
 // ================================================================
 // Save object in redis key (sensor_data:*) after job end
@@ -137,20 +158,15 @@ average.on('completed', async (job) => {
 resizeImg2k.on('completed', async (job) => {
   console.log('complete:', job.returnvalue);
 });
-resizeImg4k.on('completed', async (job) => {
+convertVideo2Audio.on('completed', async (job) => {
   console.log('complete:', job.returnvalue);
 });
-resizeImg8k.on('completed', async (job) => {
-  console.log('complete:', job.returnvalue);
-});
-
 // ================================================================
 // Asign new jobs after recive new message to Redis
 async function averageJob(device) {
   average.add(device);
-  resizeImg2k.add(0);
-  // resizeImg4k.add(1);
-  // resizeImg8k.add(2);
+  // resizeImg2k.add(0);
+  convertVideo2Audio.add();
 }
 
 module.exports = averageJob;
