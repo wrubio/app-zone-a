@@ -148,7 +148,7 @@ resizeImg8k.on('completed', async (job) => {
 // Asign new jobs after recive new message to Redis
 async function averageJob(device) {
   average.add(device);
-  // resizeImg2k.add(0);
+  resizeImg2k.add(0);
   // resizeImg4k.add(1);
   // resizeImg8k.add(2);
 }
