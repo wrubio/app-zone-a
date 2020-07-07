@@ -19,12 +19,12 @@ client.on('connect', () => {
 
 clientImg.on('connect', () => {
   console.log('img connected');
-  clientImg.subscribe(topicB);
+  // clientImg.subscribe(topicB);
 });
 
 clientVideo.on('connect', () => {
   console.log('Video connected');
-  clientVideo.subscribe(topicC);
+  // clientVideo.subscribe(topicC);
 });
 // ================================================================
 // Call job to worker
