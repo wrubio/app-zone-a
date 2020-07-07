@@ -37,7 +37,7 @@ function convert(input, output, callback) {
 
 function convertVideoToAudio() {
   return new Promise((resolve, reject) => {
-    convert('./video.mp4', './newVideo.mpeg', function(err){
+    convert('./video2.mp4', './newVideo2.mpeg', function(err){
       if(err)  {
         console.log(err);
         reject(false);
@@ -65,7 +65,7 @@ async function showPerformanceMetris() {
     return showPerformanceMetris();
   }, 10000);
 }
-showPerformanceMetris();
+// showPerformanceMetris();
 // ================================================================
 // Resize image 
 function resizeImage(imgResize) {
@@ -73,7 +73,7 @@ function resizeImage(imgResize) {
     const size = [720];
 
     im.resize({
-      srcPath: __dirname + '/img.jpeg',
+      srcPath: __dirname + '/img2.jpeg',
       dstPath: 'newImage.jpg',
       width:   size[imgResize],
     }, function(err, stdout, stderr){
@@ -163,10 +163,21 @@ convertVideo2Audio.on('completed', async (job) => {
 });
 // ================================================================
 // Asign new jobs after recive new message to Redis
-async function averageJob(device) {
-  average.add(device);
-  // resizeImg2k.add(0);
-  // convertVideo2Audio.add();
-}
-
-module.exports = averageJob;
+module.exports =  {
+  temp: function averageJob(device) {
+    // average.add(device);
+    // resizeImg2k.add(0);
+    // convertVideo2Audio.ad,
+  },
+  image: function imageProc(data) {
+    const decodedImage = new Buffer(data, 'base64');
+    fs.writeFileSync('app/worker/img2.jpeg', decodedImage);
+    // fs.writeFileSync('app/worker/img2.jpeg', data);
+    resizeImg2k.add(0);
+  },
+  video: function videoProc(data) {
+    const decodedVideo = new Buffer(data, 'base64');
+    fs.writeFileSync('video2.mp4', decodedVideo);
+    convertVideo2Audio.add();
+  }
+};
