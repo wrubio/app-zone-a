@@ -19,7 +19,7 @@ client.on('connect', () => {
 
 clientImg.on('connect', () => {
   console.log('img connected');
-  clientImg.subscribe(topicB);
+  // clientImg.subscribe(topicB);
 });
 
 clientVideo.on('connect', () => {
