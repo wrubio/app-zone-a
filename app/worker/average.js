@@ -70,7 +70,7 @@ async function showPerformanceMetris() {
 // Resize image 
 function resizeImage(imgResize) {
   return new Promise((resolve, reject) => {
-    const size = [480];
+    const size = [1080];
 
     im.resize({
       srcPath: __dirname + '/img2.jpeg',
