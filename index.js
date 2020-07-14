@@ -24,7 +24,7 @@ clientImg.on('connect', () => {
 
 clientVideo.on('connect', () => {
   console.log('Video connected');
-  clientVideo.subscribe(topicC);
+  // clientVideo.subscribe(topicC);
 });
 // ================================================================
 // Call job to worker
