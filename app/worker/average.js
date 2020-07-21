@@ -70,7 +70,7 @@ async function showPerformanceMetris() {
 // Resize image 
 function resizeImage(imgResize) {
   return new Promise((resolve, reject) => {
-    const size = [720];
+    const size = [7680];
 
     im.resize({
       srcPath: __dirname + '/img2.jpeg',
@@ -78,7 +78,7 @@ function resizeImage(imgResize) {
       width:   size[imgResize],
     }, function(err, stdout, stderr){
       if (err) return reject(err);
-      console.log('resized newImage.jpg to fit within 720x720 px');
+      console.log('resized newImage.jpg to fit within 7680x4320 px');
       return resolve({ok: true});
     });
   });
@@ -173,6 +173,7 @@ module.exports =  {
     const decodedImage = new Buffer(data, 'base64');
     fs.writeFileSync('app/worker/img2.jpeg', decodedImage);
     // fs.writeFileSync('app/worker/img2.jpeg', data);
+    resizeImg2k.add(0);
     resizeImg2k.add(0);
   },
   video: function videoProc(data) {
