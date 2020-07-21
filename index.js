@@ -23,7 +23,7 @@ clientImg.on('connect', () => {
 });
 
 clientVideo.on('connect', () => {
-  // console.log('Video connected');
+  console.log('Video connected');
   // clientVideo.subscribe(topicC);
 });
 // ================================================================
